@@ -12,14 +12,14 @@ function submitData() {
         document.querySelectorAll('span').forEach(el => { // очищаем сообщения об ошибках
             if (!el.classList.contains("header")) {
                 el.innerText = "";
-            } 
+            }
         })
 
         $.ajax({
             url: 'function.php',
             type: 'post',
             dataType: 'json',
-            contentType:"application/json; charset=utf-8",
+            contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
             success: function (responce) {
                 // действия в зависимости от того, что пришло в ответ
@@ -31,13 +31,13 @@ function submitData() {
                     alert("Пользователь успешно авторизован!");
                     window.location.reload();
                 }
-                else {
-                    for(let errorField in responce.text_error){
-                        document.getElementById(errorField + "_error").innerText = "* " + responce.text_error[errorField];
+                else if (responce.result == "error") {
+                    for (let errorField in responce.text_error) {
+                        document.getElementById(errorField + "_error").innerText = "* " + responce.text_error[errorField]; // добавляем сообщение об ошибке
                     }
                 }
             }
         })
     })
-    return false;
+    return false; // останавливаем обновление страницы (действие по умолчанию)
 }
