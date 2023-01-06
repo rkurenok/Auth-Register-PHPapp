@@ -18,11 +18,11 @@ if (isset($_POST["action"])) { // выполняем функцию в зави�
 function register()
 {
     // формируем массив с данными
-    $post["login"] = $_POST["login"];
-    $post["password"] = $_POST["password"];
-    $post["email"] = $_POST["email"];
-    $post["name"] = $_POST["name"];
-    $post["confirm_password"] = $_POST["confirm_password"];
+    $post["login"] = clean($_POST["login"]);
+    $post["password"] = clean($_POST["password"]);
+    $post["email"] = clean($_POST["email"]);
+    $post["name"] = clean($_POST["name"]);
+    $post["confirm_password"] = clean($_POST["confirm_password"]);
 
     $data["Users"] = getUsers(); // получаем пользователя
 
@@ -52,8 +52,8 @@ function register()
 function login()
 {
     // формируем массив с данными
-    $login = $_POST["login"];
-    $password = $_POST["password"];
+    $login = clean($_POST["login"]);
+    $password = clean($_POST["password"]);
 
     $data["Users"] = getUsers(); // получаем пользователя
 
@@ -72,6 +72,15 @@ function login()
     // если сопадений не было - сообщаем об ошибке
     $errorContainer["user_notFound"] = "Неверный логин и/или пароль";
     echo json_encode(array('result' => 'error', 'text_error' => $errorContainer));
+}
+
+function clean($value = "") {
+    $value = trim($value); // для удаления пробелов из начала и конца строки
+    $value = stripslashes($value); // для удаления экранированных символов
+    $value = strip_tags($value); // для удаления HTML и PHP тегов
+    $value = htmlspecialchars($value); // для преобразования спец символов в HTML-сущности
+    
+    return $value;
 }
 
 function getUsers()
