@@ -16,7 +16,7 @@ function submitData() {
         })
 
         $.ajax({
-            url: 'function.php',
+            url: 'init.php',
             type: 'post',
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
@@ -29,6 +29,9 @@ function submitData() {
                 }
                 else if (responce.result == "Login Successful") {
                     alert("Пользователь успешно авторизован!");
+                    window.location.reload();
+                }
+                else if (responce.result == "Logout Successful") {
                     window.location.reload();
                 }
                 else if (responce.result == "error") {

@@ -1,17 +1,13 @@
 <?php
-require 'function.php';
+require 'init.php';
 
-if (isset($_SESSION["id"])) {
+if (User::isAuthorized()) {
     header("Location: index.php");
 }
 ?>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Вход</title>
-        <link rel="stylesheet" href="./style.css">
-    </head>
+<?php require 'head.php';?>
     <body>
         <div class="form">
             <div class="form__inner">

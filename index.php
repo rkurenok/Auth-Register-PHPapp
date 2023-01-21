@@ -1,22 +1,31 @@
 <?php
-require 'function.php';
+require 'init.php';
 
-if(isset($_SESSION["id"])) {
-    $login = $_SESSION["login"];
-}
-else {
+if (User::isAuthorized()) {
+    // $login = $_SESSION["login"];
+    $user = new User();
+    $user = $user->getUser($_SESSION["id"]);
+    $login = $user["login"];
+} else {
     header("Location: login.php");
 }
 ?>
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Главная</title>
-        <link rel="stylesheet" href="./style.css">
-    </head>
-    <body>
-        <h2 class="mainPage">Welcome <?php echo $login ?> <a href="logout.php">Выйти</a></h2>
-    </body>
+<?php require 'head.php'; ?>
+
+<body>
+    <h2 class="mainPage">Welcome <?php echo $login ?> id: <?php echo ($_SESSION["id"])?>
+    </h2>
+    <form action="" method="post" id="logout">
+        <input type="hidden" id="action" value="logout">
+        <div class="field">
+            <input type="submit" onclick="return submitData();" value="Выход">
+        </div>
+    </form>
+    <script src="./js/jquery-3.6.3.min.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+
 </html>
