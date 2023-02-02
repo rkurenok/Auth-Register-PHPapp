@@ -1,7 +1,7 @@
 <?php
 define('mainFOLDER', dirname(__DIR__));
 class DB {
-    private $path = mainFOLDER . "\db";
+    private $path = mainFOLDER . "/db";
     private $db_name = "db.json";
 
     public $db;
@@ -12,7 +12,7 @@ class DB {
 
     private function getDataBase()
     {
-        $file = file_get_contents($this->path . "\\" . $this->db_name,  FILE_USE_INCLUDE_PATH);
+        $file = file_get_contents($this->path . "/" . $this->db_name,  FILE_USE_INCLUDE_PATH);
         $this->db = json_decode($file, true);
 
         return json_decode($file, true);
